@@ -1,40 +1,52 @@
 const React = require("react");
-const {
-  Text,
-  Box,
-  useInput,
-  useApp,
-  Newline,
-  useStdout,
-  useStdin,
-} = require("ink");
+const Gradient = require("ink-gradient");
+const BigText = require("ink-big-text");
+const { Box, Text, useInput, useApp } = require("ink");
+const importJsx = require("import-jsx");
+const Transaction = importJsx("./Transaction");
+const OpenAccount = importJsx("./OpenAccount");
 
-const UserInput = () => {
+const Options = () => {
   const { exit } = useApp();
   useInput((input) => {
-    if (input === "1") {
-      <Text>Key 1 was pressed.</Text>;
-    }
-
-    if (input === "2") {
-      <Text>Key 2 was pressed.</Text>;
-    }
+    console.log(input, "was pressed");
     if (input === "q") {
-      <Text>Goodybye!</Text>;
       exit();
+      console.log("Goodbye!");
+    }
+    if (input === "1") {
+      <Transaction />;
+    }
+    if (input === "2") {
+      <OpenAccount />;
     }
   });
 
   return (
-    <Box>
-      <Text>
-        Please Select an Option. <Newline />
-        1. Transaction <Newline />
-        2. Open New Account <Newline />
-        q. Exit <Newline />
-      </Text>
-    </Box>
+    <>
+      <Gradient name="instagram">
+        <BigText
+          text="Dollars Bank ATM Welcomes You!!"
+          align="left"
+          font="shade"
+        />
+      </Gradient>
+      <Box>
+        <Box flexDirection="column">
+          <Text>Please Select an option:</Text>
+          <Box>
+            <Text>1. Transaction</Text>
+          </Box>
+          <Box>
+            <Text>2. New Account</Text>
+          </Box>
+          <Box>
+            <Text>q. Exit</Text>
+          </Box>
+        </Box>
+      </Box>
+    </>
   );
 };
 
-module.exports = UserInput;
+module.exports = Options;
